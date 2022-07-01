@@ -33,7 +33,7 @@
 	
 <distributionManagement>
 	
-    <snapshotRepository>
+    <snapshotRepository>  #nexus repository
 	<id>nexus</id>
 	<name>nforum snapshot nexux repository</name>
 	<url>http://13.233.245.240:8081/repository/dairyapp-snapshot/</url>
