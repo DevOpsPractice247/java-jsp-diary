@@ -36,13 +36,13 @@
     <snapshotRepository>  
 	<id>nexus</id>
 	<name>nforum snapshot nexux repository</name>
-	<url>http://13.233.245.240:8081/repository/dairyapp-snapshot/</url>
+	<url>http://localhost:8081/repository/dairy-snap/</url>
     </snapshotRepository>
 
      <repository>
 	<id>nexus</id>
 	<name>nforum release nexus repository</name>
-	<url>http://13.233.245.240:8081/repository/dairy-app-release/</url>
+	<url>http://localhost:8081/repository/dairy-release/</url>
     </repository>
 </distributionManagement>
 	
