@@ -1,0 +1,56 @@
+pipeline{
+    agent any
+stages{
+    stage('code checkout'){
+        steps{
+            git branch: 'config', url: 'https://github.com/DevOpsPractice247/java-jsp-diary.git'
+        }
+    }
+    stage('code test'){
+        steps{
+            sh "mvn test"
+        }
+    }
+    stage('code build'){
+        steps{
+            sh "mvn clean package"
+        }
+    }
+    stage('code quality'){
+        steps{
+            withSonarQubeEnv(credentialsId: 'SQ',installationName:'sonar') {
+               sh "mvn sonar:sonar"
+}
+        }
+    }
+    stage('build artifact'){
+        steps{
+            sh "mvn install"
+        }
+    }
+    stage('deploy artifact'){
+        steps{
+            sh "mvn deploy"
+        }
+    }
+    stage('build image'){
+        steps{
+            sh "docker build -t anvesh247/dairy:$BUILD_NUMBER ."
+        }
+    }
+    stage('push image'){
+        steps{
+            withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'pass', usernameVariable: 'user')]) {
+              sh "docker login -u $user -p $pass" 
+               sh "docker push anvesh247/dairy:$BUILD_NUMBER"
+}
+           
+        }
+    }
+    stage('run docker image'){
+        steps{
+            sh "docker run -d --name dairyapp-$BUILD_NUMBER -p 5000:8080 anvesh247/dairy:$BUILD_NUMBER"
+        }
+    }
+}
+}
