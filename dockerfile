@@ -1,2 +1,2 @@
-FROM tomcat:jre11-openjdk
-COPY target/java-jsp-diary.war /usr/local/tomcat/webapps/
+FROM tomcat:8.0.20-jre8
+COPY target/java-jsp-diary.war /usr/local/tomcat/webapps/java-jsp-diary.war
